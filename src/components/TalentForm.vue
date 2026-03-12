@@ -18,8 +18,8 @@ function handleSubmit() {
 </script>
 
 <template>
-  <div class="bg-slate-900 border border-slate-700 p-6 rounded-2xl mb-8">
-    <h2 class="text-xl font-bold mb-4 flex items-center gap-2 text-purple-400">
+  <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-6 rounded-2xl mb-8">
+    <h2 class="text-xl font-bold mb-4 flex items-center gap-2 text-purple-600 dark:text-purple-400">
       <Sparkles :size="20" /> Add to Global Records
     </h2>
 
@@ -28,7 +28,7 @@ function handleSubmit() {
         v-model="form.name"
         type="text"
         placeholder="What's your weird skill?"
-        class="bg-slate-800 rounded-lg p-3 focus:ring-2 ring-purple-500 outline-none w-full"
+        class="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-600 rounded-lg p-3 focus:ring-2 ring-purple-500 outline-none w-full"
       />
       <div class="flex flex-col">
         <label class="text-xs text-slate-500 mb-1 ml-1">
@@ -47,7 +47,7 @@ function handleSubmit() {
     <textarea
       v-model="form.description"
       placeholder="Why is this impressive yet entirely useless?"
-      class="w-full bg-slate-800 rounded-lg p-3 h-24 mb-4 focus:ring-2 ring-purple-500 outline-none resize-none"
+      class="w-full bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-600 rounded-lg p-3 h-24 mb-4 focus:ring-2 ring-purple-500 outline-none resize-none"
     />
 
     <button

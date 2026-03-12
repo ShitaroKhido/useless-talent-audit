@@ -1,5 +1,5 @@
 <script setup>
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, onMounted } from 'vue'
 import { useTalents } from '@/composables/useTalents.js'
 import AppHeader from '@/components/AppHeader.vue'
 import StatsGrid from '@/components/StatsGrid.vue'
@@ -9,7 +9,21 @@ import AppFooter from '@/components/AppFooter.vue'
 
 const showForm = ref(false)
 const focusedId = ref(null)
+const isDark = ref(true)
 const { user, talents, loading, avgPointlessness, totalUpvotes, addTalent, upvote, addComment } = useTalents()
+
+function toggleTheme() {
+  isDark.value = !isDark.value
+  document.documentElement.classList.toggle('dark', isDark.value)
+  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
+}
+
+onMounted(() => {
+  const saved = localStorage.getItem('theme')
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+  isDark.value = saved ? saved === 'dark' : prefersDark
+  document.documentElement.classList.toggle('dark', isDark.value)
+})
 
 async function handleSubmit(payload) {
   const { duplicate } = await addTalent(payload)
@@ -31,9 +45,9 @@ function handleAddComment(talentId, text) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-8 font-sans">
+  <div class="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 p-4 md:p-8 font-sans">
     <div class="max-w-4xl mx-auto">
-      <AppHeader :show-form="showForm" @toggle-form="showForm = !showForm" />
+      <AppHeader :show-form="showForm" :is-dark="isDark" @toggle-form="showForm = !showForm" @toggle-theme="toggleTheme" />
       <StatsGrid
         :count="talents.length"
         :avg-pointlessness="avgPointlessness"

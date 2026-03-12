@@ -18,7 +18,7 @@ defineEmits(['upvote', 'add-comment'])
       <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
         <MessageSquare :size="14" /> Global Feed
       </h3>
-      <span v-if="user" class="text-[10px] text-slate-600 bg-slate-900 px-2 py-1 rounded">
+      <span v-if="user" class="text-[10px] text-slate-600 px-2 py-1 rounded">
         UID: {{ user.uid }}
       </span>
     </div>
@@ -30,24 +30,16 @@ defineEmits(['upvote', 'add-comment'])
     </div>
 
     <!-- Empty state -->
-    <div
-      v-else-if="talents.length === 0"
-      class="text-center py-20 bg-slate-900/20 border border-dashed border-slate-800 rounded-3xl"
-    >
-      <Brain :size="48" class="mx-auto mb-4 text-slate-700" />
-      <p class="text-slate-500">No talents logged yet. Be the first to start the audit.</p>
+    <div v-else-if="talents.length === 0"
+      class="text-center py-20 bg-slate-100 dark:bg-slate-900/20 border border-dashed border-slate-300 dark:border-slate-800 rounded-3xl">
+      <Brain :size="48" class="mx-auto mb-4 text-slate-400 dark:text-slate-700" />
+      <p class="text-slate-400 dark:text-slate-500">No talents logged yet. Be the first to start the audit.</p>
     </div>
 
     <!-- Cards -->
     <TransitionGroup v-else name="list" tag="div" class="space-y-6">
-      <TalentCard
-        v-for="talent in talents"
-        :key="talent.id"
-        :talent="talent"
-        :focused="talent.id === focusedId"
-        @upvote="$emit('upvote', $event)"
-        @add-comment="(id, text) => $emit('add-comment', id, text)"
-      />
+      <TalentCard v-for="talent in talents" :key="talent.id" :talent="talent" :focused="talent.id === focusedId"
+        @upvote="$emit('upvote', $event)" @add-comment="(id, text) => $emit('add-comment', id, text)" />
     </TransitionGroup>
   </div>
 </template>
@@ -57,6 +49,7 @@ defineEmits(['upvote', 'add-comment'])
 .list-leave-active {
   transition: all 0.4s ease;
 }
+
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
