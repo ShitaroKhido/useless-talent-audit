@@ -45,28 +45,41 @@ function handleAddComment(talentId, text) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 p-4 md:p-8 font-sans">
-    <div class="max-w-4xl mx-auto">
+  <main class="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 p-4 md:p-8 font-sans">
+    <div class="max-w-4xl mx-auto" id="top">
       <AppHeader :show-form="showForm" :is-dark="isDark" @toggle-form="showForm = !showForm" @toggle-theme="toggleTheme" />
-      <StatsGrid
-        :count="talents.length"
-        :avg-pointlessness="avgPointlessness"
-        :total-upvotes="totalUpvotes"
-      />
-      <Transition name="slide-down">
-        <TalentForm v-if="showForm" @submit="handleSubmit" @cancel="showForm = false" />
-      </Transition>
-      <TalentFeed
-        :talents="talents"
-        :loading="loading"
-        :user="user"
-        :focused-id="focusedId"
-        @upvote="upvote"
-        @add-comment="handleAddComment"
-      />
-      <AppFooter />
+
+      <section id="stats" aria-labelledby="stats-heading">
+        <h2 id="stats-heading" class="sr-only">Audit Stats</h2>
+        <StatsGrid
+          :count="talents.length"
+          :avg-pointlessness="avgPointlessness"
+          :total-upvotes="totalUpvotes"
+        />
+      </section>
+
+      <section id="submit" aria-labelledby="submit-heading">
+        <h2 id="submit-heading" class="sr-only">Submit A Talent</h2>
+        <Transition name="slide-down">
+          <TalentForm v-if="showForm" @submit="handleSubmit" @cancel="showForm = false" />
+        </Transition>
+      </section>
+
+      <section id="feed" aria-labelledby="feed-heading">
+        <h2 id="feed-heading" class="sr-only">Global Talent Feed</h2>
+        <TalentFeed
+          :talents="talents"
+          :loading="loading"
+          :user="user"
+          :focused-id="focusedId"
+          @upvote="upvote"
+          @add-comment="handleAddComment"
+        />
+      </section>
+
+      <AppFooter id="about" />
     </div>
-  </div>
+  </main>
 </template>
 
 <style>

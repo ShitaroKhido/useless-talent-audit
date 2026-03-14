@@ -16,6 +16,12 @@ defineEmits(['toggle-form', 'toggle-theme'])
         The Talent Audit
       </h1>
       <p class="text-slate-500 dark:text-slate-400 text-lg">See the weirdest skills from around the world.</p>
+      <nav aria-label="Quick links" class="mt-3 flex flex-wrap items-center gap-3 text-sm" hidden>
+        <a href="#stats" class="text-slate-600 dark:text-slate-300 hover:underline">Stats</a>
+        <a href="#submit" class="text-slate-600 dark:text-slate-300 hover:underline">Submit</a>
+        <a href="#feed" class="text-slate-600 dark:text-slate-300 hover:underline">Feed</a>
+        <a href="#about" class="text-slate-600 dark:text-slate-300 hover:underline">About</a>
+      </nav>
     </div>
     <div class="flex items-center gap-3">
       <button
